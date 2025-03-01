@@ -1,4 +1,4 @@
-### CS3980 Assignment 2
+# CS3980 Assignment 2
 
 ***Here's my code and comments explaining the code.***
 ***The screenshots show the code and the commented explinations.***
