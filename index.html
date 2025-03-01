@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<head>
+    <!-- sets the character encoding -->
+    <meta charset="UTF-8">
+    <!-- proper rendering and scaling -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- title of webpage -->
+    <title>US Population</title>
+    <!-- styles of the table (width, color, border, etc.) -->
+    <style>
+        table {
+            width: 30%;
+            border-collapse: collapse;
+            margin: 20px auto;
+            text-align: center;
+            font-family: 'Courier New', Courier, monospace;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 6px;
+        }
+        th {
+            background-color: #ffffff;
+        }
+    </style>
+</head>
+
+<body>
+    <h2 style="text-align: center;">US Population</h2>
+    <table id="populationTable">
+        <thead>
+            <tr>
+                <th>Year</th>
+                <th>Population</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+
+    <script>
+        // function to get population data from API
+        async function fetchPopulationData() {
+            try {
+                // sends request to the API
+                const response = await fetch('https://datausa.io/api/data?drilldowns=Nation&measures=Population');
+                // gets the data and puts in json format
+                const data = await response.json();
+                
+                // gets the data from the json
+                let populationData = data.data;
+                // sorts the data
+                populationData.sort((a, b) => a.Year - b.Year);
+                
+                // puts the data into the table
+                const tableBody = document.querySelector('#populationTable tbody');
+                // deletes any already existing table data
+                tableBody.innerHTML = '';
+                
+                // loops through for each data entry
+                populationData.forEach(entry => {
+                    // makes a new row with year and population values
+                    const row = `<tr><td>${entry.Year}</td><td>${entry.Population.toLocaleString()}</td></tr>`;
+                    // the row to the table
+                    tableBody.innerHTML += row;
+                });
+            } catch (error) {
+                // logs an error if there's a failure
+                console.error('Error fetching population data:', error);
+            }
+        }
+        
+        // calls the function when the page loads
+        window.onload = fetchPopulationData;
+    </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
